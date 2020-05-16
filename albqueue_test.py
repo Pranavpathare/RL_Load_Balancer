@@ -28,3 +28,23 @@ class ALBQueue(deque):
     def get_count(self):
         """Count of GET method Requests in Queue"""
         return sum([item._method == 'GET' for item in self])
+
+
+
+x = ALBQueue()
+
+c = Client(x)
+
+c.fire('random', rtype = 'RAND', rps = 3)
+
+time.sleep(10)
+
+c.fire('uniform', rtype = 'RAND', rps = 10)
+
+c.fire('single', rtype = 'POST')
+
+c.fire('stop')
+
+print(x.queue_length())
+
+print(x.time_exp())
